@@ -34,15 +34,15 @@
         },
         "SECURITY_SCORECARD_ISSUE_TABLE_NAME":{
             "type": "string",
-            "defaultValue": "<SECURITY_SCORECARD_ISSUE_TABLE_NAME>"
+            "defaultValue": "SecurityScorecardIssues_CL"
         },
         "LEVEL_ISSUE_CHANGE":{
             "type": "string",
-            "defaultValue": "<LEVEL_ISSUE_CHANGE>"
+            "defaultValue": "7"
         },
         "FactorSchedule":{
             "type": "string",
-            "defaultValue": "<Cron Expression>"
+            "defaultValue": "0 */20 * * * *"
         }
     },
     "variables": {
