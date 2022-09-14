@@ -34,15 +34,15 @@
         },
         "SECURITY_SCORECARD_ISSUE_TABLE_NAME":{
             "type": "string",
-            "defaultValue": "SecurityScorecardIssues_CL"
+            "defaultValue": "SecurityScorecardIssues"
         },
         "LEVEL_ISSUE_CHANGE":{
             "type": "string",
             "defaultValue": "7"
         },
-        "FactorSchedule":{
+        "IssueSchedule":{
             "type": "string",
-            "defaultValue": "0 */20 * * * *"
+            "defaultValue": "0 0,30 * * * *"
         }
     },
     "variables": {
@@ -178,7 +178,7 @@
                         "PORTFOLIO_IDS_STR": "[parameters('PORTFOLIO_IDS_STR')]",
                         "SECURITY_SCORECARD_ISSUE_TABLE_NAME": "[parameters('SECURITY_SCORECARD_ISSUE_TABLE_NAME')]",
                         "LEVEL_ISSUE_CHANGE": "[parameters('LEVEL_ISSUE_CHANGE')]",
-                        "Schedule": "[parameters('FactorSchedule')]",
+                        "Schedule": "[parameters('IssueSchedule')]",
                         "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/SSCIssue/blob/main/SecurityScorecardIssue.zip?raw=true"
                     }
                 }
