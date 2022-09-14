@@ -2,32 +2,32 @@
     "id": "SecurityScorecardIssue",
     "title": "SecurityScorecard Issue",
     "publisher": "SecurityScorecard",
-    "descriptionMarkdown": "The [SecurityScorecard](https://www.SecurityScorecard.com/) Activities connector gives the capability to ingest SecurityScorecard Issues into Microsoft Sentinel through the SecurityScorecard REST API. Refer to the API documentation: ` https://api.securityscorecard.io/doc` for more information. The connector provides the ability to get device activity information from the SecurityScorecard platform. SecurityScorecard uses your existing infrastructure to discover and identify devices without having to deploy any agents. SecurityScorecard detects what all devices are doing in your environment and classifies those activities to get a complete picture of device behavior. These activities are analyzed for an understanding of normal and abnormal device behavior and used to assess device and network risk.",
-    "additionalRequirementBanner": "These queries and workbooks are dependent on a parser based on Kusto to work as expected. Follow the steps to use this Kusto functions alias **SecurityScorecardIssue** in queries and workbooks [Follow steps to get this Kusto functions>](https://bitbucket.org/crestdatasys/azure-sentinel-SecurityScorecardXXX-integration/raw/8a3d1a1f8e7b29d9e08f9c59f3869fcfdffcb099/Parsers/SecurityScorecardXXX.txt).",
+    "descriptionMarkdown": "The [SecurityScorecard](https://www.SecurityScorecard.com/) connector gives the capability to ingest SecurityScorecard Issue into Microsoft Sentinel through the SecurityScorecard REST API. Refer to the API documentation: ` https://api.securityscorecard.io/doc` for more information. The connector provides the ability to get issue information from the SecurityScorecard platform. SecurityScorecard uses your existing infrastructure to discover and identify devices without having to deploy any agents.",
+    "additionalRequirementBanner": "These queries and workbooks are dependent on a parser based on Kusto to work as expected. Follow the steps to use this Kusto functions alias **SecurityScorecardIssue* in queries and workbooks [Follow steps to get this Kusto functions>](https://aka.ms/sentinel-SecurityScorecardIssueAPI-parser).",
     "graphQueries": [
         {
-            "metricName": "Total Activities data received",
-            "legend": "SecurityScorecard_Issue",
-            "baseQuery": "SecurityScorecard_Issue"
+            "metricName": "Total Issue data received",
+            "legend": "SecurityScorecardIssues_CL",
+            "baseQuery": "SecurityScorecardIssues_CL"
         }
     ],
     "sampleQueries": [
         {
-            "description" : "SecurityScorecard Activity Events - All Activities Activities.",
-            "query": "SecurityScorecard_Issue\n | sort by TimeGenerated desc"
+            "description" : "SecurityScorecard Issue Events - All Issue Activities.",
+            "query": "SecurityScorecardIssues_CL\n | sort by TimeGenerated desc"
         }
     ],
     "dataTypes": [
         {
-            "name": "SecurityScorecard_Issue",
-            "lastDataReceivedQuery": "SecurityScorecard_Issue\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
+            "name": "SecurityScorecardIssues_CL",
+            "lastDataReceivedQuery": "SecurityScorecardIssues_CL\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
         }
     ],
     "connectivityCriterias": [
         {
             "type": "IsConnectedQuery",
             "value": [
-                "SecurityScorecard_Issue\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
+                "SecurityScorecardIssues_CL\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
             ]
         }
     ],
@@ -64,7 +64,7 @@
         },
         {
             "name": "REST API Credentials/permissions",
-            "description": "**SecurityScorecard Key** is required.  See the documentation to learn more about API on the `https://<YourSecurityScorecardInstance>.SecurityScorecard.com/api/v1/doc`"
+            "description": "**SecurityScorecard API Key** is required.  See the documentation to learn more about API on the `https://<YourSecurityScorecardInstance>.SecurityScorecard.com/api/v1/doc`"
         }
         ]
     },
@@ -77,11 +77,11 @@
             "description": ">**(Optional Step)** Securely store workspace and API authorization key(s) or token(s) in Azure Key Vault. Azure Key Vault provides a secure mechanism to store and retrieve key values. [Follow these instructions](https://docs.microsoft.com/azure/app-service/app-service-key-vault-references) to use Azure Key Vault with an Azure Function App."
         },
 		{
-			"description": ">**NOTE:** This data connector depends on a parser based on a Kusto Function to work as expected. [Follow these steps](https://bitbucket.org/crestdatasys/azure-sentinel-SecurityScorecardXXX-integration/raw/8a3d1a1f8e7b29d9e08f9c59f3869fcfdffcb099/Parsers/SecurityScorecardXXX.txt) to create the Kusto functions alias, **SecurityScorecardIssue**"
+			"description": ">**NOTE:** This data connector depends on a parser based on a Kusto Function to work as expected. [Follow these steps](https://aka.ms/sentinel-SecurityScorecardIssueAPI-parser) to create the Kusto functions alias, **SecurityScorecardIssue**"
 		},
         {
             "title": "",
-            "description": "**STEP 1 - Configuration steps for the SecurityScorecard API**\n\n Follow these instructions to create an SecurityScorecard API secret key.\n 1. Log into your SecurityScorecard instance\n 2. Navigate to Settings -> API Management\n 3. If the secret key has not already been created, press the Create button to create the secret key\n 4. To access the secret key, press the Show button\n 5. The secret key can now be copied and used during the SecurityScorecard Issue connector configuration"
+            "description": "**STEP 1 - Configuration steps for the SecurityScorecard API**\n\n Follow these instructions to create/get a SecurityScorecard API secret key.\n 1. Log into your SecurityScorecard instance\n 2. Navigate to Settings -> API Management\n 3. If the secret key has not already been created, press the Create button to create the secret key\n 4. To access the secret key, press the Show button\n 5. The secret key can now be copied and used during the SecurityScorecard Issue connector configuration"
         },
         {
             "title": "",
@@ -108,11 +108,11 @@
         },
         {
             "title": "Option 1 - Azure Resource Manager (ARM) Template",
-            "description": "Use this method for automated deployment of the SecurityScorecard connector.\n\n1. Click the **Deploy to Azure** button below. \n\n\t[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Frushitajudiya-crest%2FSSCIssue%2Fmain%2Fazuredeploy_Connector_SecurityScorecardIssueAPI_AzureFunction.json)\n2. Select the preferred **Subscription**, **Resource Group** and **Location**. \n3. Enter the below information : \n\t\tFunction Name \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tSecurityScorecard Secret Key \n\t\tSecurityScorecard URL (https://<SecurityScorecard-instance>.SecurityScorecard.com/api/v1/) \n\t\tSecurityScorecard Activity Table Name \n\t\tSecurityScorecard Schedule \n\t\tAvoid Duplicates (Default: false) \n4. Mark the checkbox labeled **I agree to the terms and conditions stated above**. \n5. Click **Purchase** to deploy."
+            "description": "Use this method for automated deployment of the SecurityScorecard Issue connector.\n\n1. Click the **Deploy to Azure** button below. \n\n\t[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://aka.ms/sentinel-SecurityScorecardIssueAPI-azuredeploy)\n2. Select the preferred **Subscription**, **Resource Group** and **Location**. \n3. Enter the below information : \n\t\tFunction Name \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tSecurityScorecard API Key \n\t\tSecurityScorecard Base URL (https://api.securityscorecard.io) \n\t\tDomain \n\t\tPortfolio IDs (Coma separated IDs) \n\t\tSecurityScorecard Issue Table Name (Default: SecurityScorecardIssue) \n\t\tLevel Issue Change (Default: 7) \n\t\tIssue Schedule (Default: 0 0,30 * * * *) \n4. Mark the checkbox labeled **I agree to the terms and conditions stated above**. \n5. Click **Purchase** to deploy."
         },
         {
             "title": "Option 2 - Manual Deployment of Azure Functions",
-            "description": "Use the following step-by-step instructions to deploy the SecurityScorecard Activity data connector manually with Azure Functions (Deployment via Visual Studio Code)."
+            "description": "Use the following step-by-step instructions to deploy the SecurityScorecard Issue data connector manually with Azure Functions (Deployment via Visual Studio Code)."
         },
         {
             "title": "",
@@ -120,7 +120,7 @@
         },
         {
             "title": "",
-            "description": "**2. Configure the Function App**\n\n1. In the Function App, select the Function App Name and select **Configuration**.\n2. In the **Application settings** tab, select **+ New application setting**.\n3. Add each of the following application settings individually, with their respective values (case-sensitive): \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tSecurityScorecard Secret Key \n\t\tSecurityScorecard URL (https://<SecurityScorecard-instance>.SecurityScorecard.com/api/v1/) \n\t\tSecurityScorecard Activity Table Name \n\t\tSecurityScorecard Schedule \n\t\tAvoid Duplicates (Default: false) \n\t\tlogAnalyticsUri (optional) \n - Use logAnalyticsUri to override the log analytics API endpoint for dedicated cloud. For example, for public cloud, leave the value empty; for Azure GovUS cloud environment, specify the value in the following format: `https://<CustomerId>.ods.opinsights.azure.us`.\n4. Once all application settings have been entered, click **Save**."
+            "description": "**2. Configure the Function App**\n\n1. In the Function App, select the Function App Name and select **Configuration**.\n2. In the **Application settings** tab, select **+ New application setting**.\n3. Add each of the following application settings individually, with their respective values (case-sensitive): \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tSecurityScorecard API Key \n\t\tSecurityScorecard Base URL (https://api.securityscorecard.io) \n\t\tDomain \n\t\tPortfolio IDs (Coma separated IDs) \n\t\tSecurityScorecard Issue Table Name (Default: SecurityScorecardIssue) \n\t\tLevel Issue Change (Default: 7) \n\t\tIssue Schedule (Default: 0 0,30 * * * *) \n\t\tlogAnalyticsUri (optional) \n - Use logAnalyticsUri to override the log analytics API endpoint for dedicated cloud. For example, for public cloud, leave the value empty; for Azure GovUS cloud environment, specify the value in the following format: `https://<CustomerId>.ods.opinsights.azure.us`.\n4. Once all application settings have been entered, click **Save**."
         }
     ]
 }
