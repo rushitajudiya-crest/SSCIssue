@@ -179,7 +179,7 @@
                         "SECURITY_SCORECARD_ISSUE_TABLE_NAME": "[parameters('SECURITY_SCORECARD_ISSUE_TABLE_NAME')]",
                         "LEVEL_ISSUE_CHANGE": "[parameters('LEVEL_ISSUE_CHANGE')]",
                         "Schedule": "[parameters('IssueSchedule')]",
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/SSCIssue/blob/main/SecurityScorecardIssue.zip?raw=true"
+                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/SSCIssue/blob/test/SecurityScorecardIssue.zip?raw=true"
                     }
                 }
             ]
